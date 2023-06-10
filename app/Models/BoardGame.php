@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BoardGame extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'description', 'image', 'yearRelease', 'id_manufacturer', 'minPlayers', 'maxPlayers', 'minAge', 'price',
+        'quantity'];
 
     protected $table = 'boardgames';
     public function genres()

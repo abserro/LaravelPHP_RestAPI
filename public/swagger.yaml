@@ -1,0 +1,886 @@
+openapi: 3.0.3
+info:
+  title: BoardGame API 3.0
+  version: 1.0.11
+servers:
+  - url:  http://127.0.0.1:8000
+    description: Dev server
+paths:
+  /api/v1/boardgames:
+    get:
+      summary: Get all boardgames
+      tags:
+        - BoardGames
+      operationId: getBoardGames
+      responses:
+        '200':
+          description: Successful getting boardgames
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGames'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create new BoardGame
+      tags:
+        - BoardGames
+      operationId: createBoardGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoardGame'
+      responses:
+        '201':
+          description: Successful creating of board game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGame'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/boardgames/orderByNameAsc:
+    get:
+      summary: Get all boardgames ordered by name (ascending)
+      tags:
+        - BoardGames
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGames'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/boardgames/orderByNameDesc:
+    get:
+      summary: Get all boardgames ordered by name (descending)
+      tags:
+        - BoardGames
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGames'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/boardgames/orderByDateAsc:
+    get:
+      summary: Get all boardgames ordered by date release (ascending)
+      tags:
+        - BoardGames
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGames'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/boardgames/orderByDateDesc:
+    get:
+      summary: Get all boardgames ordered by date release (descending)
+      tags:
+        - BoardGames
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGames'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/boardgames/{game_id}:
+    get:
+      summary: Get board game by Id
+      tags:
+        - BoardGames
+      operationId: getGameById
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          description: Id of board game
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful getting of board game by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGame'
+        '400':
+          description: Invalid ID board game
+        '404':
+          description: BoardGame is not found
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete board game by Id
+      tags:
+        - BoardGames
+      operationId: deleteGameById
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          description: Id of board game
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful deleting of board game by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGame'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - BoardGames
+      summary: Update an existing board game by all fields
+      description: Update an existing board game by Id
+      operationId: updateBoardGame
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          description: Id of board game
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent board game in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoardGame'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGame'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: BoardGame is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - BoardGames
+      summary: Update an existing board game by no all fields
+      description: Update an existing board game by Id
+      operationId: updateBoardGame
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          description: Id of board game
+          schema:
+            type: string
+        - in: query
+          name: board game
+          description: BoardGame object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/components/schemas/BoardGame'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardGame'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: BoardGame is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/genres:
+    get:
+      summary: Get all genres
+      tags:
+        - Genres
+      operationId: getGenres
+      responses:
+        '200':
+          description: Successful getting genres
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genres'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Genre is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create new genre
+      tags:
+        - Genres
+      operationId: createGenre
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+      responses:
+        '201':
+          description: Successful creating of genre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Genre is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/genres/{genre_id}:
+    get:
+      summary: Get genre by Id
+      tags:
+        - Genres
+      operationId: getGenreById
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          description: Id of genre
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful getting of genre by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        '400':
+          description: Invalid ID genre
+        '404':
+          description: Genre is not found
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete Genre by Id
+      tags:
+        - Genres
+      operationId: deleteGenreById
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          description: Id of genre
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful deleting of genre by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Genre is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Genres
+      summary: Update an existing genre by all fields
+      description: Update an existing genre by Id
+      operationId: updateGenre
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          description: Id of genre
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent genre
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Genre is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Genres
+      summary: Update an existing genre by no all fields
+      description: Update an existing genre by Id
+      operationId: updateGenre
+      parameters:
+        - name: genre_id
+          in: path
+          required: true
+          description: Id of genre
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent genre
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Genre is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/gameGenres:
+    get:
+      summary: Get all studio genre relations
+      tags:
+        - GameGenreRelation
+      responses:
+        '200':
+          description: Successful getting gameGenres
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenres'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new genre genre relation
+      tags:
+        - GameGenreRelation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameGenre'
+      responses:
+        '201':
+          description: Successful creating of game genre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/gameGenres/{game_id}:
+    get:
+      summary: Get a specific genre genre relation
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the genre
+      responses:
+        '200':
+          description: Successful getting GameGenre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Replace a game genre relation
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the genre
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameGenre'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: GameGenre is not found
+        '405':
+          description: Validation exception
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a genre genre relation
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the genre
+      responses:
+        '204':
+          description: Successful deleting of board game by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/gameGenres/boardGame/{genre_id}:
+    get:
+      summary: Get all genre boardGame relations by genre_id
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: genre_id
+          in: path
+          description: ID of the boardGame
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful getting GameGenre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/gameGenres/genre/{game_id}:
+    get:
+      summary: Get all genre boardGame relations by game_id
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: game_id
+          in: path
+          description: ID of the genre
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful getting GameGenre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: BoardGame is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/gameGenres/genre/{game_id}/boardGame/{genre_id}:
+    post:
+      summary: Create a new gameGenre relation
+      tags:
+        - GameGenreRelation
+      parameters:
+        - name: game_id
+          in: path
+          description: ID of the genre
+          required: true
+          schema:
+            type: integer
+        - name: genre_id
+          in: path
+          description: ID of the boardGame
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameGenre'
+      responses:
+        '201':
+          description: Successful creating of genre
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameGenre'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Genre is not found
+        'default':
+          description: Unsuccessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+components:
+  schemas:
+    BoardGame:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Cup
+        description:
+          type: string
+          example: Description of game
+        yearRelease:
+          type: integer
+          format: int32
+          example: 2020
+        image:
+          type: string
+          example: https://f8.pmo.ee/wzKYitGs5fJ_6bi3QRd7YJeHwkk=/685x0/nginx/o/2022/08/03/14736428t1h4a35.jpg
+        id_manufacturer:
+          type: integer
+          format: int32
+          example: 10
+        minPlayers:
+          type: integer
+          format: int32
+          example: 2
+        maxPlayers:
+          type: integer
+          format: int32
+          example: 15
+        minAge:
+          type: integer
+          format: int32
+          example: 6
+        price:
+          type: integer
+          format: int32
+          example: 1700
+        quantity:
+          type: integer
+          format: int32
+          example: 78
+    BoardGames:
+      type: array
+      items:
+        $ref: "#/components/schemas/BoardGame"
+    Genre:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Games for children
+        description:
+          type: string
+          example: This is a description of games for children
+    Genres:
+      type: array
+      items:
+        $ref: "#/components/schemas/Genre"
+    GameGenre:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 30
+        game_id:
+          type: integer
+          format: int32
+          example: 34
+        genre_id:
+          type: integer
+          format: int32
+          example: 42
+    GameGenres:
+      type: array
+      items:
+        $ref: "#/components/schemas/GameGenre"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string

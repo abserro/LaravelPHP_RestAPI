@@ -14,16 +14,15 @@ return new class extends Migration
         Schema::create('boardgames', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code')->unique();
             $table->text('description');
             $table->string('image')->nullable();
             $table->integer('yearRelease');
+            $table->integer('id_manufacturer');
             $table->integer('minPlayers');
             $table->integer('maxPlayers');
             $table->integer('minAge');
             $table->float('price');
             $table->integer('quantity');
-            $table->boolean('active');
             $table->timestamps();
         });
     }

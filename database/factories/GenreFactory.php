@@ -13,7 +13,6 @@ class GenreFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'code' => $this->faker->unique()->regexify('[A-Za-z0-9_-]{10}'),
             'description' => $this->faker->unique()->sentence,
         ];
     }

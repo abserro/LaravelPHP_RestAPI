@@ -9,6 +9,8 @@ class Genre extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description'];
+
     public function boardGames()
     {
         return $this->belongsToMany(BoardGame::class, 'game_genre', 'genre_id', 'game_id');

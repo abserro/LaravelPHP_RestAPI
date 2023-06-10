@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\BoardGame;
 use App\Models\GameGenre;
 use App\Models\Genre;
+use App\Models\Manufacturer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
 //        DB::table('boardgames')->truncate();
 //        DB::table('genres')->truncate();
 //        DB::table('game_genre')->truncate();
+//        DB::table('manufacturers')->truncate();
+        Manufacturer::factory()->count(50)->create();
         Genre::factory()->count(50)->create();
         BoardGame::factory()->count(100)->create();
         GameGenre::factory()->count(150)->create();
